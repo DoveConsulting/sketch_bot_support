@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<robot name="sketch_bot" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include filename="$(find sketch_bot_support)/urdf/sketch_bot_macro.xacro"/>
+  <xacro:sketch_bot prefix=""/>
+</robot>
