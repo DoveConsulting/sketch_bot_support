@@ -14,80 +14,86 @@
     <color rgba="0.1 0.1 0.1 1.0"/>
   </material>
 
+  <xacro:property name="link_2_z_offset" value="0.15785"/>
+  <xacro:property name="link_3_z_offset" value="0.3556"/>
+  <xacro:property name="link_4_z_offset" value="0.352129"/>
+  <xacro:property name="flange_z_offset" value="0.09430"/>
+  <xacro:property name="yaw_offset" value="${radians(0)}"/>
+
   <xacro:macro name="sketch_bot" params="prefix">
     <!-- links: main serial chain -->
     <link name="${prefix}base_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/visual/base_link.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/visual/base_link.stl"/>
         </geometry>
         <material name="dark_grey"/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/collision/base_link.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/collision/base_link.stl"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_1">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/visual/link_1.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/visual/link_1.stl"/>
         </geometry>
         <material name="white"/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/collision/link_1.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/collision/link_1.stl"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_2">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 -${link_2_z_offset}" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/visual/link_2.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/visual/link_2.stl"/>
         </geometry>
        <material name="dark_yellow"/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 -${link_2_z_offset}" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/collision/link_2.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/collision/link_2.stl"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_3">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-link_2_z_offset-link_3_z_offset}" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/visual/link_3.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/visual/link_3.stl"/>
         </geometry>
         <material name="white"/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-link_2_z_offset-link_3_z_offset}" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/collision/link_3.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/collision/link_3.stl"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_4">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-link_2_z_offset-link_3_z_offset-link_4_z_offset}" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/visual/link_4.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/visual/link_4.stl"/>
         </geometry>
         <material name="dark_yellow"/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-link_2_z_offset-link_3_z_offset-link_4_z_offset}" rpy="0 0 ${yaw_offset}"/>
         <geometry>
-          <mesh scale="0.001 0.001 0.001" filename="package://sketch_bot_support/meshes/collision/link_4.stl"/>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/collision/link_4.stl"/>
         </geometry>
       </collision>
     </link>
@@ -102,35 +108,57 @@
     </joint>
 
     <joint name="${prefix}joint_2" type="revolute">
-      <origin xyz="0 0 0.03635" rpy="0 0 0"/>
+      <origin xyz="0 0 ${link_2_z_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link_1"/>
       <child link="${prefix}link_2"/>
-      <axis xyz="0  1 0"/>
+      <axis xyz="1 0 0"/>
       <limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="${radians(120)}"/>
     </joint>
 
     <joint name="${prefix}joint_3" type="revolute">
-      <origin xyz="0 0 0.3556" rpy="0 0 0"/>
+      <origin xyz="0 0 ${link_3_z_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link_2"/>
       <child link="${prefix}link_3"/>
-      <axis xyz="0  1 0"/>
+      <axis xyz="1 0 0"/>
       <limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="${radians(120)}"/>
     </joint>
 
     <joint name="${prefix}joint_4" type="revolute">
-      <origin xyz="0 0 0.3522" rpy="0 0 0"/>
+      <origin xyz="0 0 ${link_4_z_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link_3"/>
       <child link="${prefix}link_4"/>
-      <axis xyz="0  1 0"/>
+      <axis xyz="1 0 0"/>
       <limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="${radians(120)}"/>
     </joint>
 
     <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
     <link name="${prefix}tool0" />
     <joint name="${prefix}link_4-tool0" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 ${flange_z_offset}" rpy="0 0 0" />
       <parent link="${prefix}link_4" />
       <child link="${prefix}tool0" />
     </joint>
+
+    <link name="${prefix}base_elevation">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/visual/base_elevation.stl"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="1.0 1.0 1.0" filename="package://sketch_bot_support/meshes/collision/base_elevation.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}base_elevation-base_link" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}base_elevation" />
+      <child link="${prefix}base_link" />
+    </joint>
+
   </xacro:macro>
 </robot>
