@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-  <!-- <xacro:include filename="$(find sketch_bot_resources)/urdf/common_materials.xacro"/> -->
 
   <material name="dark_yellow">
     <color rgba="0.75 0.55 0.15 1.0"/>
@@ -21,7 +20,6 @@
   <xacro:property name="yaw_offset" value="${radians(0)}"/>
 
   <xacro:macro name="sketch_bot" params="prefix">
-    <!-- links: main serial chain -->
     <link name="${prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 ${yaw_offset}"/>
@@ -98,7 +96,6 @@
       </collision>
     </link>
 
-    <!-- joints: main serial chain -->
     <joint name="${prefix}joint_1" type="revolute">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${prefix}base_link"/>
@@ -111,7 +108,7 @@
       <origin xyz="0 0 ${link_2_z_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link_1"/>
       <child link="${prefix}link_2"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="${radians(120)}"/>
     </joint>
 
@@ -119,7 +116,7 @@
       <origin xyz="0 0 ${link_3_z_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link_2"/>
       <child link="${prefix}link_3"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="${radians(120)}"/>
     </joint>
 
@@ -127,11 +124,10 @@
       <origin xyz="0 0 ${link_4_z_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link_3"/>
       <child link="${prefix}link_4"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="${radians(120)}"/>
     </joint>
 
-    <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
     <link name="${prefix}tool0" />
     <joint name="${prefix}link_4-tool0" type="fixed">
       <origin xyz="0 0 ${flange_z_offset}" rpy="0 0 0" />

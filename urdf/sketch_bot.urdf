@@ -4,7 +4,6 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="sketch_bot">
-  <!-- <xacro:include filename="$(find sketch_bot_resources)/urdf/common_materials.xacro"/> -->
   <material name="dark_yellow">
     <color rgba="0.75 0.55 0.15 1.0"/>
   </material>
@@ -14,7 +13,6 @@
   <material name="dark_grey">
     <color rgba="0.1 0.1 0.1 1.0"/>
   </material>
-  <!-- links: main serial chain -->
   <link name="base_link">
     <visual>
       <origin rpy="0 0 0.0" xyz="0 0 0"/>
@@ -90,7 +88,6 @@
       </geometry>
     </collision>
   </link>
-  <!-- joints: main serial chain -->
   <joint name="joint_1" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="base_link"/>
@@ -102,29 +99,34 @@
     <origin rpy="0 0 0" xyz="0 0 0.15785"/>
     <parent link="link_1"/>
     <child link="link_2"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="-1 0 0"/>
     <limit effort="0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0943951023931953"/>
   </joint>
   <joint name="joint_3" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.3556"/>
     <parent link="link_2"/>
     <child link="link_3"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="-1 0 0"/>
     <limit effort="0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0943951023931953"/>
   </joint>
   <joint name="joint_4" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.352129"/>
     <parent link="link_3"/>
     <child link="link_4"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="-1 0 0"/>
     <limit effort="0" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0943951023931953"/>
   </joint>
-  <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
   <link name="tool0"/>
   <joint name="link_4-tool0" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.0943"/>
     <parent link="link_4"/>
     <child link="tool0"/>
+  </joint>
+  <link name="tip"/>
+  <joint name="tool0-tip" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.075 0"/>
+    <parent link="tool0"/>
+    <child link="tip"/>
   </joint>
   <link name="base_elevation">
     <visual>
